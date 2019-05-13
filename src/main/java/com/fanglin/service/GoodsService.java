@@ -24,4 +24,10 @@ public interface GoodsService {
      * @return
      */
     List<HomeRecommendGoodsModel> homeHotGoodsList();
+
+    /**
+     * 商品分类树
+     * @return
+     */
+    List<HomeGoodsClassModel> goodsClassTree();
 }
