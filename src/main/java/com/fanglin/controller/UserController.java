@@ -3,7 +3,6 @@ package com.fanglin.controller;
 import com.fanglin.annotation.Token;
 import com.fanglin.core.others.Ajax;
 import com.fanglin.core.token.TokenInfo;
-import com.fanglin.service.GoodsService;
 import com.fanglin.service.UserService;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
