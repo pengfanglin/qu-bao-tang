@@ -84,8 +84,8 @@ buildscript {
 }
 
 //如果静态资源不单独nginx部署的话，需要开启静态资源拷贝任务，拷贝webapp目录下的资源文件
-copy {
-    CopySpec copySpec->
-        from 'src/main/webapp'
-        into "${rootDir}/build/resources/main/static"
-}
+//copy {
+//    CopySpec copySpec->
+//        from 'src/main/webapp'
+//        into "${rootDir}/build/resources/main/static"
+//}
