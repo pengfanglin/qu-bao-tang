@@ -30,9 +30,16 @@ public class GoodsController {
     public Ajax homeGoodsClassList(){
         return Ajax.ok(goodsService.homeGoodsClassList());
     }
+
     @ApiOperation("首页热卖商品")
     @PostMapping("homeHotGoodsList")
     public Ajax homeHotGoodsList(){
         return Ajax.ok(goodsService.homeHotGoodsList());
+    }
+
+    @ApiOperation("商品分类树")
+    @PostMapping("goodsClassTree")
+    public Ajax goodsClassTree(){
+        return Ajax.ok(goodsService.goodsClassTree());
     }
 }

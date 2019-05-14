@@ -36,4 +36,10 @@ public class GoodsServiceImpl implements GoodsService {
     public List<HomeRecommendGoodsModel> homeHotGoodsList() {
         return mapperFactory.goodsMapper.homeHotGoodsList();
     }
+
+    @Override
+    @LocalCache(value = "goods_class_tree",timeout = 1,unit = TimeUnit.DAYS)
+    public List<HomeGoodsClassModel> goodsClassTree() {
+        return mapperFactory.goodsClassMapper.goodsClassTree();
+    }
 }

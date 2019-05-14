@@ -5,6 +5,8 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
+import java.util.List;
+
 /**
  * 首页商品分类
  * @author 彭方林
@@ -24,4 +26,7 @@ public class HomeGoodsClassModel {
 
     @ApiModelProperty("图标")
     private String classImg;
+
+    @ApiModelProperty("子分类列表")
+    private List<HomeGoodsClassModel> goodsClassModels;
 }

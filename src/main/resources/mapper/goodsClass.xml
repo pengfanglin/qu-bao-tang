@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fanglin.mapper.GoodsClassMapper">
+  <resultMap id="goodsClassParent" type="homeGoodsClassModel">
+    <result column="class_id" property="classId" />
+    <result column="class_name" property="className" />
+    <result column="class_img" property="classImg" />
+    <association property="goodsClassModels" resultMap="goodsClassChild" />
+  </resultMap>
+  <resultMap id="goodsClassChild" type="homeGoodsClassModel">
+    <result column="class_id2" property="classId" />
+    <result column="class_name2" property="className" />
+    <result column="class_img2" property="classImg" />
+  </resultMap>
+
+  <select id="goodsClassTree" resultMap="goodsClassParent">
+		select a.class_id,a.class_name,a.class_img,b.class_id as class_id2,b.class_name as class_name2,
+		b.class_img as class_img2,b.parent_id as parent_id2
+		from goods_class as a
+		left join goods_class as b
+		on b.parent_id=a.class_id
+		where a.parent_id=-1
+		order by a.sort desc,b.sort desc,a.class_id asc,b.class_id asc
+	</select>
+</mapper>
