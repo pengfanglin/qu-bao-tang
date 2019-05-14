@@ -3,19 +3,18 @@ package com.fanglin.core.aop;
 import com.fanglin.annotation.Token;
 import com.fanglin.core.others.Ajax;
 import com.fanglin.core.token.TokenInfo;
+import com.fanglin.utils.JedisUtils;
 import com.fanglin.utils.JsonUtils;
 import com.fanglin.utils.OthersUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import redis.clients.jedis.Jedis;
-import redis.clients.jedis.JedisPool;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -31,9 +30,6 @@ import java.lang.reflect.Field;
 @Component
 @Aspect()
 public class TokenAop {
-
-    @Autowired
-    JedisPool jedisPool;
 
     /**
      * 切入的验证代码
@@ -53,7 +49,7 @@ public class TokenAop {
         String sessionId = this.getSessionId(request);
         boolean pass = false;
         if (!OthersUtils.isEmpty(sessionId)) {
-            Jedis jedis=jedisPool.getResource();
+            Jedis jedis= JedisUtils.getJedis();
             String redisToken=jedis.get("token:" + sessionId);
             if(!OthersUtils.isEmpty(redisToken)){
                 TokenInfo tokenInfo = JsonUtils.jsonToObject(redisToken,TokenInfo.class);
@@ -72,6 +68,7 @@ public class TokenAop {
                     }
                 }
             }
+            jedis.close();
         }
         //验证通过，继续执行，否则返回token验证失败
         if (pass) {

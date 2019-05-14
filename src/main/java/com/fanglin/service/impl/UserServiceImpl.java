@@ -4,7 +4,6 @@ import com.fanglin.annotation.LocalCache;
 import com.fanglin.core.others.Assert;
 import com.fanglin.core.token.TokenInfo;
 import com.fanglin.entity.user.UserEntity;
-import com.fanglin.enums.others.TokenTypeEnum;
 import com.fanglin.mapper.MapperFactory;
 import com.fanglin.model.goods.HomeGoodsClassModel;
 import com.fanglin.model.user.HotSearchModel;
@@ -58,7 +57,7 @@ public class UserServiceImpl implements UserService {
         UserEntity user = mapperFactory.userMapper.selectOne(new UserEntity().setAccount(account));
         Assert.isTrue("0".equals(user.getIsDisable()),"账号已冻结");
         Assert.isTrue(EncodeUtils.md5Encode(password).equals(user.getPassword()),"密码错误");
-        TokenInfo tokenInfo = TokenUtils.login(request,response,new TokenInfo().setType(TokenTypeEnum.USER).setId(user.getUserId()));
+        TokenInfo tokenInfo = TokenUtils.login(response,new TokenInfo().setId(user.getUserId()),-1);
         return BeanUtils.copy(user,UserModel.class).setPassword(null).setToken(tokenInfo.getToken()).setPayPassword(null);
     }
 }
