@@ -13,3 +13,4 @@ spring:
     password: 123456
 jedis:
   password: 123456
+  host: 47.101.151.125
