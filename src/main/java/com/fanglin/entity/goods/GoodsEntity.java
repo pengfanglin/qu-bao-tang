@@ -25,22 +25,12 @@ public class GoodsEntity implements Serializable {
 
     @Id
     @KeySql(useGeneratedKeys = true)
-    private Integer goodsId;
-
-    /**
-     * 商家id
-     */
-    private Integer merchantsId;
+    private Integer id;
 
     /**
      * 商品分类id
      */
     private Integer classId;
-
-    /**
-     * 商品编码
-     */
-    private String code;
 
     /**
      * 名称
@@ -66,11 +56,6 @@ public class GoodsEntity implements Serializable {
      * 现价
      */
     private String nowPrice;
-
-    /**
-     * 商品简介
-     */
-    private String goodsDesc;
 
     /**
      * 详情web地址

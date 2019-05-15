@@ -25,22 +25,22 @@ public class GoodsClassEntity implements Serializable {
 
     @Id
     @KeySql(useGeneratedKeys = true)
-    private Integer classId;
+    private Integer id;
 
     /**
      * 分类名称
      */
-    private String className;
+    private String name;
 
     /**
      * 分类描述
      */
-    private String classDesc;
+    private String desc;
 
     /**
      * 分类图标
      */
-    private String classImg;
+    private String img;
 
     /**
      * 父id

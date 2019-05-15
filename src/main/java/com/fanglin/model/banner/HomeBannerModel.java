@@ -18,16 +18,16 @@ import java.io.Serializable;
 public class HomeBannerModel implements Serializable {
 
     @ApiModelProperty(value = "图片")
-    private String bannerImg;
+    private String img;
 
     @ApiModelProperty(value = "内链url")
     private String bannerUrl;
 
     @ApiModelProperty(value = "common:普通 goods:商品 chain:外链")
-    private String bannerType;
+    private String type;
 
-    @ApiModelProperty(value = "轮播图商品id")
-    private Integer goodsId;
+    @ApiModelProperty(value = "相关联的业务id")
+    private Integer businessId;
 
     @ApiModelProperty(value = "外链url")
     private String chainUrl;

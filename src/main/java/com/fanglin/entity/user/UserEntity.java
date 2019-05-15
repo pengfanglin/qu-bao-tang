@@ -28,7 +28,7 @@ public class UserEntity implements Serializable {
      */
     @Id
     @KeySql(useGeneratedKeys = true)
-    private Integer userId;
+    private Integer id;
 
     /**
      * 账号

@@ -19,7 +19,7 @@ public interface GoodsClassMapper extends Mapper<GoodsClassEntity> {
      * 首页商品分类
      * @return
      */
-    @Select("select class_id,class_name,class_img from goods_class where parent_id=-1 and is_recommend=1 order by sort desc,class_id asc limit 9 ")
+    @Select("select id,name,img from goods_class where parent_id=0 and is_recommend=1 order by sort desc,id asc limit 9 ")
     List<HomeGoodsClassModel> homeGoodsClassList();
 
     /**

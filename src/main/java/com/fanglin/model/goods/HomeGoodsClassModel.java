@@ -19,13 +19,13 @@ import java.util.List;
 public class HomeGoodsClassModel {
 
     @ApiModelProperty("主键")
-    private Integer classId;
+    private Integer id;
 
     @ApiModelProperty("名称")
-    private String className;
+    private String name;
 
     @ApiModelProperty("图标")
-    private String classImg;
+    private String img;
 
     @ApiModelProperty("子分类列表")
     private List<HomeGoodsClassModel> goodsClassModels;

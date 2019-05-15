@@ -22,7 +22,7 @@ import java.util.Date;
 @ApiModel(value = "GoodsModel对象", description = "首页推荐商品")
 public class HomeRecommendGoodsModel implements Serializable {
 
-    private Integer goodsId;
+    private Integer id;
 
     @ApiModelProperty(value = "名称")
     private String name;

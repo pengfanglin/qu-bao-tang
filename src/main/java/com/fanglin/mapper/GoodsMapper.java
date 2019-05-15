@@ -19,6 +19,6 @@ public interface GoodsMapper extends Mapper<GoodsEntity> {
      * 首页推荐商品
      * @return
      */
-    @Select("select goods_id,name,img,min_price,total_sales from goods where is_recommend=1 and state=1 order by total_sales desc limit 6 ")
+    @Select("select id,name,img,min_price,total_sales from goods where is_recommend=1 and state=1 order by total_sales desc limit 8 ")
     List<HomeRecommendGoodsModel> homeHotGoodsList();
 }
