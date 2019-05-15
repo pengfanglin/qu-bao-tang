@@ -7,8 +7,6 @@ import com.fanglin.tkmapper.generator.config.PackageConfig;
 import com.fanglin.tkmapper.generator.config.StrategyConfig;
 import com.fanglin.tkmapper.generator.config.rules.DateType;
 
-import java.util.Date;
-
 /**
  * @author 彭方林
  * @version 1.0
@@ -20,7 +18,7 @@ public class Test {
         AutoGenerator generator = new AutoGenerator();
         // 策略配置
         StrategyConfig strategy = new StrategyConfig()
-            .setInclude("user");
+            .setInclude("post_message");
         generator.setStrategy(strategy);
         // 全局配置
         GlobalConfig globalConfig = new GlobalConfig()
@@ -31,10 +29,13 @@ public class Test {
         generator.setGlobalConfig(globalConfig);
         PackageConfig packageConfig = new PackageConfig();
         packageConfig.setParent("com.test");
+        packageConfig.setController(null);
+        packageConfig.setService(null);
+        packageConfig.setServiceImpl(null);
         generator.setPackageConfig(packageConfig);
         // 数据源配置
         DataSourceConfig dataSourceConfig = new DataSourceConfig()
-            .setUrl("jdbc:mysql://127.0.0.1:3306/qu_bao_tang")
+            .setUrl("jdbc:mysql://47.101.151.125:3306/qu-bao-tang?useSSL=false&serverTimezone=CTT&characterEncoding=UTF-8&autoReconnect=true")
             .setDriverName("com.mysql.cj.jdbc.Driver")
             .setUsername("root")
             .setPassword("123456");
