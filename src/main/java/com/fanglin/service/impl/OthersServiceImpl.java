@@ -1,10 +1,16 @@
 package com.fanglin.service.impl;
 
 import com.fanglin.annotation.LocalCache;
-import com.fanglin.entity.others.CodeEntity;
+import com.fanglin.core.others.Ajax;
+import com.fanglin.core.others.Assert;
+import com.fanglin.enums.others.CodeType;
 import com.fanglin.mapper.MapperFactory;
 import com.fanglin.model.banner.HomeBannerModel;
+import com.fanglin.model.others.CodeModel;
 import com.fanglin.service.OthersService;
+import com.fanglin.utils.OthersUtils;
+import com.fanglin.utils.SmsUtils;
+import com.fanglin.utils.TimeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,12 +34,14 @@ public class OthersServiceImpl implements OthersService {
     /**
      * 添加新的验证码
      *
-     * @param code
      * @return
      */
     @Override
-    public int insertCode(CodeEntity code) {
-        return mapperFactory.codeMapper.insertSelective(code.setCreateTime(new Date()));
+    public void sendCode(CodeModel codeModel) {
+        CodeType codeType=CodeType.find(codeModel.getType());
+        Assert.notNull(codeType,"验证码类型不存在");
+        codeModel.setCode(OthersUtils.createRandom(4));
+        Assert.isTrue(SmsUtils.zhuTong(codeModel),"验证码发送失败");
     }
 
     @Override

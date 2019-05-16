@@ -1,7 +1,9 @@
 package com.fanglin.utils;
 
 
+import com.fanglin.core.others.Assert;
 import com.fanglin.core.others.ValidateException;
+import com.fanglin.model.others.CodeModel;
 import com.fanglin.properties.SmsProperties;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -40,12 +42,13 @@ public class SmsUtils {
      * @param phone   手机号
      * @param content 短信内容
      */
-    private static void validate(String phone, String content) {
-        if (OthersUtils.isEmpty(phone)) {
-            throw new ValidateException("手机号不能为空");
-        }
-        if (OthersUtils.isEmpty(content)) {
-            throw new ValidateException("短信内容不能为空");
+    private static void validate(CodeModel codeModel) {
+        Assert.notEmpty(codeModel.getKey(),"redisKey不能为空");
+        Assert.notEmpty(codeModel.getCode(),"验证码不能为空");
+        Assert.notEmpty(codeModel.getMobile(),"手机号不能为空");
+        Assert.notEmpty(codeModel.getContent(),"短信内容不能为空");
+        if(codeModel.getTimeout()==0){
+            codeModel.setTimeout(60);
         }
     }
 
@@ -56,16 +59,17 @@ public class SmsUtils {
      * @param content 短信内容
      * @return
      */
-    public static boolean zhuTong(String phone, String content) {
-        validate(phone, content);
+    public static boolean zhuTong(CodeModel codeModel) {
+        validate(codeModel);
+        JedisUtils.set(codeModel.getKey(),codeModel.getCode(),"ex",codeModel.getTimeout()*1000);
         // 产生随机验证码
         try {
             String tkey = TimeUtils.getCurrentTime("yyyyMMddHHmmss");
             Map<String, Object> params = new HashMap<>(10);
             params.put("username", smsProperties.getZhuTong().getAccount());
             params.put("password", EncodeUtils.md5Encode(EncodeUtils.md5Encode(smsProperties.getZhuTong().getPassword()).toLowerCase() + tkey).toLowerCase());
-            params.put("mobile", phone);
-            params.put("content", content);
+            params.put("mobile", codeModel.getMobile());
+            params.put("content", codeModel.getContent());
             params.put("tkey", tkey);
             params.put("xh", "");
             String ret = HttpUtils.post(ZHU_TONG_URL, params);

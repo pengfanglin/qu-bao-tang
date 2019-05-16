@@ -1,10 +1,11 @@
 package com.fanglin.controller;
 
+import com.fanglin.annotation.Token;
 import com.fanglin.core.others.Ajax;
-import com.fanglin.core.page.Page;
-import com.fanglin.entity.others.CodeEntity;
+import com.fanglin.core.token.TokenInfo;
+import com.fanglin.enums.others.CodeType;
+import com.fanglin.model.others.CodeModel;
 import com.fanglin.service.OthersService;
-import com.fanglin.service.SystemService;
 import com.fanglin.utils.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -29,8 +30,6 @@ public class OthersController {
 
 	@Autowired
 	OthersService othersService;
-	@Autowired
-	SystemService systemService;
 
 	/**
 	 * 获取微信授权
@@ -73,18 +72,10 @@ public class OthersController {
 	 * @return
 	 */
 	@PostMapping("sendCode")
-	public Ajax sendCode(CodeEntity codeBean){
-		String code = OthersUtils.createRandom(4);
-		if (SmsUtils.zhuTong(codeBean.getMobile(),code)) {
-			Date create=new Date();
-			codeBean.setCode(code)
-				.setEffectiveTime(TimeUtils.getTimeMinuteAfter(create,10))
-				.setCreateTime(create);
-			othersService.insertCode(codeBean);
-			return Ajax.ok(code);
-		} else {
-			return Ajax.error("发送失败");
-		}
+	@Token
+	public Ajax sendCode(@RequestParam String mobile, @RequestParam Integer type, TokenInfo tokenInfo){
+		othersService.sendCode(new CodeModel().setKey(tokenInfo.getId()+"_"+type).setMobile(mobile));
+		return Ajax.ok("发送成功");
 	}
 
 	@ApiOperation("首页轮播图")

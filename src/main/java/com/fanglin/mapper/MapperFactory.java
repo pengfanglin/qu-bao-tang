@@ -15,12 +15,6 @@ public class MapperFactory {
     @Autowired
     public OthersMapper othersMapper;
     @Autowired
-    public SystemAccountMapper systemAccountMapper;
-    @Autowired
-    public SystemModuleMapper systemModuleMapper;
-    @Autowired
-    public RoleMapper roleMapper;
-    @Autowired
     public SystemHtmlMapper systemHtmlMapper;
     @Autowired
     public HtmlStyleMapper htmlStyleMapper;
@@ -49,8 +43,6 @@ public class MapperFactory {
      */
     @Autowired
     public BannerMapper bannerMapper;
-    @Autowired
-    public CodeMapper codeMapper;
     /**
      * 支付记录
      **/

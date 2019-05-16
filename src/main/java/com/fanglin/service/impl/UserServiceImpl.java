@@ -32,11 +32,6 @@ public class UserServiceImpl implements UserService {
     @Autowired
     MapperFactory mapperFactory;
 
-    @LocalCache(value = "home_goods_class",timeout = 1,unit = TimeUnit.DAYS)
-    public List<HomeGoodsClassModel> homeGoodsClassList() {
-        return mapperFactory.goodsClassMapper.homeGoodsClassList();
-    }
-
     @Override
     public List<HotSearchModel> userSearchHistoryList(Integer userId) {
         return mapperFactory.hotSearchMapper.userSearchHistoryList(userId);

@@ -1,7 +1,6 @@
 package com.fanglin.service;
 
 
-import com.fanglin.entity.user.UserEntity;
 import com.fanglin.model.user.HotSearchModel;
 import com.fanglin.model.user.UserModel;
 
