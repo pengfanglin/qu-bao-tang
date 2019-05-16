@@ -2,11 +2,13 @@ package com.fanglin.service.impl;
 
 import com.fanglin.annotation.LocalCache;
 import com.fanglin.core.others.Assert;
+import com.fanglin.core.page.Page;
+import com.fanglin.core.page.PageResult;
 import com.fanglin.core.token.TokenInfo;
 import com.fanglin.entity.user.UserEntity;
 import com.fanglin.mapper.MapperFactory;
-import com.fanglin.model.goods.HomeGoodsClassModel;
 import com.fanglin.model.user.HotSearchModel;
+import com.fanglin.model.user.ShopCarModel;
 import com.fanglin.model.user.UserModel;
 import com.fanglin.service.UserService;
 import com.fanglin.utils.*;
@@ -50,9 +52,15 @@ public class UserServiceImpl implements UserService {
         Assert.isTrue(RegexUtils.checkPhone(account),"手机号格式错误");
         Assert.isTrue(password.length()<=30,"密码最多30位");
         UserEntity user = mapperFactory.userMapper.selectOne(new UserEntity().setAccount(account));
+        Assert.notNull(user,"用户不存在");
         Assert.isTrue("0".equals(user.getIsDisable()),"账号已冻结");
         Assert.isTrue(EncodeUtils.md5Encode(password).equals(user.getPassword()),"密码错误");
         TokenInfo tokenInfo = TokenUtils.login(response,new TokenInfo().setId(user.getId()),-1);
-        return BeanUtils.copy(user,UserModel.class).setPassword(null).setToken(tokenInfo.getToken()).setPayPassword(null);
+        return BeanUtils.copy(user,UserModel.class).setPassword(null).setPayPassword(null);
+    }
+
+    @Override
+    public PageResult<ShopCarModel> shopCarList(Integer userId, Page page) {
+        return new PageResult<>(mapperFactory.shopCarMapper.shopCarList(userId,page),page.getTotal());
     }
 }

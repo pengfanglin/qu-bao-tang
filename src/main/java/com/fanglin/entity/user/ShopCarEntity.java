@@ -1,4 +1,4 @@
-package com.fanglin.entity.goods;
+package com.fanglin.entity.user;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -9,54 +9,43 @@ import tk.mybatis.mapper.annotation.LogicDelete;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Date;
 
 /**
- * 商品分类
+ * 购物车
  *
  * @author 彭方林
- * @date 2019-05-11
+ * @date 2019-05-16
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@Table(name = "goods_class")
-public class GoodsClassEntity implements Serializable {
+@Table(name = "shop_car")
+public class ShopCarEntity implements Serializable {
 
     @Id
     @KeySql(useGeneratedKeys = true)
     private Integer id;
 
     /**
-     * 分类名称
+     * 用户id
      */
-    private String name;
+    private Integer memberId;
 
     /**
-     * 分类描述
+     * 商品id
      */
-    private String desc;
+    private Integer goodsId;
 
     /**
-     * 分类图标
+     * 规格id
      */
-    private String img;
+    private Integer specificationId;
 
     /**
-     * 父id
+     * 数量
      */
-    private Integer parentId;
-
-    /**
-     * 父id组合
-     */
-    private String parentIds;
-
-    /**
-     * 权重
-     */
-    private Float sort;
+    private Integer number;
 
     /**
      * 创建时间
@@ -64,17 +53,8 @@ public class GoodsClassEntity implements Serializable {
     private Date createTime;
 
     /**
-     * 修改时间
-     */
-    private Date updateTime;
-
-    /**
-     * 是否首页推荐
-     */
-    private String isRecommend;
-    /**
      * 是否删除
      */
     @LogicDelete
-    public String isDelete;
+    private String isDelete;
 }

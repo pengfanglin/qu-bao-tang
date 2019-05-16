@@ -3,6 +3,7 @@ package com.fanglin.entity.system;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import tk.mybatis.mapper.annotation.KeySql;
+import tk.mybatis.mapper.annotation.LogicDelete;
 import tk.mybatis.mapper.annotation.Order;
 import tk.mybatis.mapper.code.IdentityDialect;
 
@@ -28,27 +29,26 @@ public class SystemHtmlEntity implements Serializable {
      */
     @Id
     @KeySql(useGeneratedKeys = true)
-    @Order
-    private Integer htmlId;
+    private Integer id;
     /**
      * 名称
      */
-    private String htmlName;
+    private String name;
     /**
      * url路径
      */
-    private String htmlUrl;
-    /**
-     * 内容
-     */
-    @Transient
-    private String htmlUrlContent;
+    private String url;
     /**
      * 权重
      */
-    private Integer sort;
+    private Float sort;
     /**
      * 创建时间
      */
     private Date createTime;
+    /**
+     * 是否删除
+     */
+    @LogicDelete
+    public String isDelete;
 }

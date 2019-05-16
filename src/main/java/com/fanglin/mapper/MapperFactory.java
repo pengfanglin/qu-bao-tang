@@ -19,6 +19,11 @@ public class MapperFactory {
     @Autowired
     public HtmlStyleMapper htmlStyleMapper;
     /**
+     * 购物车
+     **/
+    @Autowired
+    public ShopCarMapper shopCarMapper;
+    /**
      * 用户
      **/
     @Autowired

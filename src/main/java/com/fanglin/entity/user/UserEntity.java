@@ -3,7 +3,9 @@ package com.fanglin.entity.user;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+import org.apache.ibatis.annotations.Delete;
 import tk.mybatis.mapper.annotation.KeySql;
+import tk.mybatis.mapper.annotation.LogicDelete;
 
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -46,11 +48,6 @@ public class UserEntity implements Serializable {
     private String password;
 
     /**
-     * 用户token
-     */
-    private String token;
-
-    /**
      * 真实姓名
      */
     private String realName;
@@ -63,7 +60,7 @@ public class UserEntity implements Serializable {
     /**
      * 头像图片路径
      */
-    private String headImage;
+    private String headImg;
 
     /**
      * 性别
@@ -109,4 +106,9 @@ public class UserEntity implements Serializable {
      * 是否冻结
      */
     private String isDisable;
+    /**
+     * 是否删除
+     */
+    @LogicDelete
+    public String isDelete;
 }

@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 import tk.mybatis.mapper.annotation.KeySql;
+import tk.mybatis.mapper.annotation.LogicDelete;
 
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -26,17 +27,12 @@ public class BannerEntity implements Serializable {
 
     @Id
     @KeySql(useGeneratedKeys = true)
-    private Integer bannerId;
-
-    /**
-     * 标题
-     */
-    private String bannerTitle;
+    private Integer id;
 
     /**
      * 图片
      */
-    private String bannerImg;
+    private String img;
 
     /**
      * 内链url
@@ -44,14 +40,14 @@ public class BannerEntity implements Serializable {
     private String bannerUrl;
 
     /**
-     * common:普通 goods:商品 chain:外链
+     * 0-普通广告 1-商品广告 2-外链广告
      */
-    private String bannerType;
+    private Integer type;
 
     /**
      * 介绍
      */
-    private String bannerDesc;
+    private String desc;
 
     /**
      * 创建时间
@@ -66,20 +62,21 @@ public class BannerEntity implements Serializable {
     /**
      * 排序
      */
-    private BigDecimal sort;
-
-    /**
-     * home:所有主页 wx_home:微信首页 pc_home:PC主页 app_home:app主页
-     */
-    private String bannerPosition;
+    private Float sort;
 
     /**
      * 轮播图商品id
      */
-    private Integer goodsId;
+    private Integer businessId;
 
     /**
      * 外链url
      */
     private String chainUrl;
+
+    /**
+     * 是否删除
+     */
+    @LogicDelete
+    public String isDelete;
 }

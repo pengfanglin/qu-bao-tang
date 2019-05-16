@@ -3,6 +3,7 @@ package com.fanglin.mapper;
 import com.fanglin.entity.user.UserEntity;
 import tk.mybatis.mapper.common.Mapper;
 
+
 /**
  * 用户 Mapper 接口
  *

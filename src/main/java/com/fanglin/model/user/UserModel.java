@@ -34,9 +34,6 @@ public class UserModel implements Serializable {
     @ApiModelProperty(value = "密码")
     private String password;
 
-    @ApiModelProperty(value = "用户token")
-    private String token;
-
     @ApiModelProperty(value = "真实姓名")
     private String realName;
 

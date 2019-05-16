@@ -1,7 +1,10 @@
 package com.fanglin.service;
 
 
+import com.fanglin.core.page.Page;
+import com.fanglin.core.page.PageResult;
 import com.fanglin.model.user.HotSearchModel;
+import com.fanglin.model.user.ShopCarModel;
 import com.fanglin.model.user.UserModel;
 
 import javax.servlet.http.HttpServletRequest;
@@ -39,4 +42,12 @@ public interface UserService {
      * @return
      */
     UserModel userLogin(HttpServletRequest request, HttpServletResponse response, String account, String password);
+
+    /**
+     * 购物车列表
+     * @param userId
+     * @param page
+     * @return
+     */
+    PageResult<ShopCarModel> shopCarList(Integer userId, Page page);
 }

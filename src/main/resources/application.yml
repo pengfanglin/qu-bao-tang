@@ -9,6 +9,9 @@ mybatis:
   mapper-locations: classpath:mapper/*.xml
   configuration:
     map-underscore-to-camel-case: true
+    default-enum-type-handler: com.fanglin.core.enums.CodeEnumTypeHandler
+mapper:
+  safe-delete: true
 spring:
   jmx:
     enabled: false

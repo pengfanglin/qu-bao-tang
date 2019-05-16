@@ -3,7 +3,7 @@ package com.fanglin.entity.others;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import tk.mybatis.mapper.annotation.KeySql;
-import tk.mybatis.mapper.code.IdentityDialect;
+import tk.mybatis.mapper.annotation.LogicDelete;
 
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -43,4 +43,10 @@ public class HtmlStyleEntity  implements Serializable {
      * 修改时间
      */
     private Date updateTime;
+
+    /**
+     * 是否删除
+     */
+    @LogicDelete
+    public String isDelete;
 }

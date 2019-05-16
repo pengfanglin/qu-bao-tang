@@ -2,6 +2,7 @@ package com.fanglin.controller;
 
 import com.fanglin.annotation.Token;
 import com.fanglin.core.others.Ajax;
+import com.fanglin.core.page.Page;
 import com.fanglin.core.token.TokenInfo;
 import com.fanglin.service.UserService;
 import io.swagger.annotations.*;
@@ -44,5 +45,12 @@ public class UserController {
     @PostMapping("userLogin")
     public Ajax userLogin(HttpServletRequest request, HttpServletResponse response,String account,String password){
         return Ajax.ok(userService.userLogin(request,response,account,password));
+    }
+
+    @ApiOperation("购物车列表")
+    @Token
+    @PostMapping("shopCarList")
+    public Ajax shopCarList(TokenInfo tokenInfo, Page page){
+        return Ajax.ok(userService.shopCarList(tokenInfo.getId(),page));
     }
 }

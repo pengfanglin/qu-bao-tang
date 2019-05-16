@@ -1,9 +1,12 @@
 package com.fanglin.entity.goods;
 
+import com.fanglin.core.enums.CodeEnum;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.experimental.Accessors;
 import tk.mybatis.mapper.annotation.KeySql;
+import tk.mybatis.mapper.annotation.LogicDelete;
 
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -110,7 +113,7 @@ public class GoodsEntity implements Serializable {
     /**
      * 状态1上架0下架
      */
-    private String state;
+    private State state;
 
     /**
      * 创建时间
@@ -131,4 +134,31 @@ public class GoodsEntity implements Serializable {
      * 邮费
      */
     private Integer expressPrice;
+    /**
+     * 是否推荐
+     */
+    public String isRecommend;
+    /**
+     * 是否删除
+     */
+    @LogicDelete
+    public String isDelete;
+
+    enum State implements CodeEnum {
+        /**
+         * 下架
+         */
+        SOLD_OUT(0),
+        /**
+         * 上架
+         */
+        ON_SALE(1);
+
+        @Getter
+        private int code;
+
+        State(int code) {
+            this.code = code;
+        }
+    }
 }

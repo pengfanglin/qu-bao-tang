@@ -18,7 +18,7 @@ public class Test {
         AutoGenerator generator = new AutoGenerator();
         // 策略配置
         StrategyConfig strategy = new StrategyConfig()
-            .setInclude("post_message");
+            .setInclude("shop_car");
         generator.setStrategy(strategy);
         // 全局配置
         GlobalConfig globalConfig = new GlobalConfig()
@@ -29,9 +29,9 @@ public class Test {
         generator.setGlobalConfig(globalConfig);
         PackageConfig packageConfig = new PackageConfig();
         packageConfig.setParent("com.test");
-        packageConfig.setController(null);
-        packageConfig.setService(null);
-        packageConfig.setServiceImpl(null);
+        packageConfig.setController("controller");
+        packageConfig.setService("service");
+        packageConfig.setServiceImpl("service.impl");
         generator.setPackageConfig(packageConfig);
         // 数据源配置
         DataSourceConfig dataSourceConfig = new DataSourceConfig()
