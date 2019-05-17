@@ -50,4 +50,19 @@ public interface UserService {
      * @return
      */
     PageResult<ShopCarModel> shopCarList(Integer userId, Page page);
+
+    /**
+     * 添加购物车记录
+     * @param shopCarModel
+     * @return
+     */
+    int insertShopCart(ShopCarModel shopCarModel);
+
+    /**
+     * 批量删除购物车
+     * @param userId 用户id
+     * @param ids 购物车id，逗号分隔
+     * @return
+     */
+    int deleteShopCarByIds(Integer userId, String ids);
 }

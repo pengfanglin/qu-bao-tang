@@ -21,7 +21,7 @@ public class CodeEnumTypeHandler<E extends Enum<?> & CodeEnum> extends BaseTypeH
 
     public CodeEnumTypeHandler(Class<E> type) {
         if (type == null) {
-            throw new IllegalArgumentException("Type argument cannot be null");
+            throw new IllegalArgumentException("元素类型不能为空");
         }
         this.type = type;
     }

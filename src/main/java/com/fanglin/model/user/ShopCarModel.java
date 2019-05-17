@@ -8,7 +8,6 @@ import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Date;
 
 /**
  * 购物车
@@ -29,6 +28,9 @@ public class ShopCarModel implements Serializable {
 
     @ApiModelProperty(value = "商品名称")
     private String goodsName;
+
+    @ApiModelProperty(value = "用户id")
+    private Integer userId;
 
     @ApiModelProperty(value = "规格id")
     private Integer specificationId;

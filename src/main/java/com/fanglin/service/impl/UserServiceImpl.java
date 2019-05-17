@@ -5,6 +5,7 @@ import com.fanglin.core.others.Assert;
 import com.fanglin.core.page.Page;
 import com.fanglin.core.page.PageResult;
 import com.fanglin.core.token.TokenInfo;
+import com.fanglin.entity.user.ShopCarEntity;
 import com.fanglin.entity.user.UserEntity;
 import com.fanglin.mapper.MapperFactory;
 import com.fanglin.model.user.HotSearchModel;
@@ -55,12 +56,22 @@ public class UserServiceImpl implements UserService {
         Assert.notNull(user,"用户不存在");
         Assert.isTrue("0".equals(user.getIsDisable()),"账号已冻结");
         Assert.isTrue(EncodeUtils.md5Encode(password).equals(user.getPassword()),"密码错误");
-        TokenInfo tokenInfo = TokenUtils.login(response,new TokenInfo().setId(user.getId()),-1);
+        TokenInfo tokenInfo = TokenUtils.login(response,new TokenInfo().setId(user.getId()));
         return BeanUtils.copy(user,UserModel.class).setPassword(null).setPayPassword(null);
     }
 
     @Override
     public PageResult<ShopCarModel> shopCarList(Integer userId, Page page) {
         return new PageResult<>(mapperFactory.shopCarMapper.shopCarList(userId,page),page.getTotal());
+    }
+
+    @Override
+    public int insertShopCart(ShopCarModel shopCarModel) {
+        return mapperFactory.shopCarMapper.insertSelective(BeanUtils.copy(shopCarModel, ShopCarEntity.class));
+    }
+
+    @Override
+    public int deleteShopCarByIds(Integer userId, String ids) {
+        return mapperFactory.shopCarMapper.deleteShopCarByIds(userId,ids);
     }
 }

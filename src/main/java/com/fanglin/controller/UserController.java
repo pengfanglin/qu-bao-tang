@@ -4,6 +4,7 @@ import com.fanglin.annotation.Token;
 import com.fanglin.core.others.Ajax;
 import com.fanglin.core.page.Page;
 import com.fanglin.core.token.TokenInfo;
+import com.fanglin.model.user.ShopCarModel;
 import com.fanglin.service.UserService;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,5 +53,24 @@ public class UserController {
     @PostMapping("shopCarList")
     public Ajax shopCarList(TokenInfo tokenInfo, Page page){
         return Ajax.ok(userService.shopCarList(tokenInfo.getId(),page));
+    }
+
+    @ApiOperation("添加购物车记录")
+    @Token
+    @PostMapping("insertShopCart")
+    public Ajax insertShopCart(TokenInfo tokenInfo, ShopCarModel shopCarModel){
+        userService.insertShopCart(shopCarModel.setUserId(tokenInfo.getId()));
+        return Ajax.ok();
+    }
+
+    @ApiOperation("批量删除购物车")
+    @Token
+    @PostMapping("deleteShopCarByIds")
+    public Ajax deleteShopCarByIds(TokenInfo tokenInfo, String ids){
+        if(userService.deleteShopCarByIds(tokenInfo.getId(),ids)>0){
+            return Ajax.ok();
+        }else{
+            return Ajax.error("删除失败");
+        }
     }
 }

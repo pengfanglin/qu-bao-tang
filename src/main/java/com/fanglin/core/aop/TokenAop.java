@@ -50,13 +50,14 @@ public class TokenAop {
         boolean pass = false;
         if (!OthersUtils.isEmpty(sessionId)) {
             Jedis jedis= JedisUtils.getJedis();
-            String redisToken=jedis.get("token:" + sessionId);
+            String key="token:" + sessionId;
+            String redisToken=jedis.get(key);
             if(!OthersUtils.isEmpty(redisToken)){
                 TokenInfo tokenInfo = JsonUtils.jsonToObject(redisToken,TokenInfo.class);
-                int timeout=1000 * 60 * 10;
-                //如果token到期时间小于10分钟，重新设置token失效时间为一小时
-                if (tokenInfo.getTokenTime().getTime() - System.currentTimeMillis() < timeout) {
-                    jedis.set("token:" + sessionId, JsonUtils.objectToJson(tokenInfo), "ex",3600);
+                long timeout=jedis.ttl(key);
+                //用户每次操作都重置令牌过期时间
+                if(timeout!=-1){
+                    jedis.set("token:" + sessionId, JsonUtils.objectToJson(tokenInfo), "px",tokenInfo.getTimeout());
                 }
                 pass = true;
                 //判断是否需要注入用户id

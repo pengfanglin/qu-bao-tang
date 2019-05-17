@@ -30,7 +30,7 @@ public class ShopCarEntity implements Serializable {
     /**
      * 用户id
      */
-    private Integer memberId;
+    private Integer userId;
 
     /**
      * 商品id
