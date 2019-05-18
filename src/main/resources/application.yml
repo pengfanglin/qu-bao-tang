@@ -13,7 +13,6 @@ mybatis:
 mapper:
   safe-delete: true
   safe-update: true
-  use-simple-type: true
   enum-as-simple-type: true
 spring:
   jmx:
