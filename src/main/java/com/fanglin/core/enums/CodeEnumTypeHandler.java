@@ -51,10 +51,6 @@ public class CodeEnumTypeHandler<E extends Enum<?> & CodeEnum> extends BaseTypeH
     }
 
     private E codeOf(int code){
-        try {
-            return CodeEnum.find(type, code);
-        } catch (Exception e) {
-            throw new ValidateException("不能将【" + code + "】转换为" + type.getSimpleName() + "");
-        }
+        return CodeEnum.find(type, code);
     }
 }

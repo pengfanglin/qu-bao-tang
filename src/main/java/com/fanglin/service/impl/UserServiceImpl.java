@@ -56,7 +56,7 @@ public class UserServiceImpl implements UserService {
         Assert.notNull(user,"用户不存在");
         Assert.isTrue("0".equals(user.getIsDisable()),"账号已冻结");
         Assert.isTrue(EncodeUtils.md5Encode(password).equals(user.getPassword()),"密码错误");
-        TokenInfo tokenInfo = TokenUtils.login(response,new TokenInfo().setId(user.getId()));
+        TokenUtils.login(response,new TokenInfo().setId(user.getId()));
         return BeanUtils.copy(user,UserModel.class).setPassword(null).setPayPassword(null);
     }
 
