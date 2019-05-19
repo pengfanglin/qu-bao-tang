@@ -19,6 +19,6 @@ public interface BannerMapper extends Mapper<BannerEntity> {
      * 首页轮播图
      * @return
      */
-    @Select("select img,banner_url,type,chain_url,business_id from banner order by sort desc,id asc limit 5")
+    @Select("select img,url,type,business_id from banner order by sort desc,id asc limit 5")
     List<HomeBannerModel> homeBannerList();
 }

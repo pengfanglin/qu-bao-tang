@@ -1,5 +1,6 @@
 package com.fanglin.mapper;
 
+import com.fanglin.core.page.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

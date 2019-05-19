@@ -1,5 +1,6 @@
 package com.fanglin.entity.others;
 
+import com.fanglin.enums.others.BannerTypeEnum;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -42,7 +43,7 @@ public class BannerEntity implements Serializable {
     /**
      * 0-普通广告 1-商品广告 2-外链广告
      */
-    private Integer type;
+    private BannerTypeEnum type;
 
     /**
      * 介绍

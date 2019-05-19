@@ -1,7 +1,11 @@
 package com.fanglin.service.impl;
 
 import com.fanglin.annotation.LocalCache;
+import com.fanglin.core.page.Page;
+import com.fanglin.core.page.PageResult;
 import com.fanglin.mapper.MapperFactory;
+import com.fanglin.model.SearchGoodsModel;
+import com.fanglin.model.goods.GoodsDetailModel;
 import com.fanglin.model.goods.HomeGoodsClassModel;
 import com.fanglin.model.goods.HomeRecommendGoodsModel;
 import com.fanglin.service.GoodsService;
@@ -41,5 +45,20 @@ public class GoodsServiceImpl implements GoodsService {
     @LocalCache(value = "goods_class_tree",timeout = 1,unit = TimeUnit.DAYS)
     public List<HomeGoodsClassModel> goodsClassTree() {
         return mapperFactory.goodsClassMapper.goodsClassTree();
+    }
+
+    @Override
+    public List<String> goodsNameAutoCompletion(String goodsName) {
+       return mapperFactory.goodsMapper.goodsNameAutoCompletion(goodsName);
+    }
+
+    @Override
+    public PageResult<SearchGoodsModel> searchGoodsList(String goodsName,String order, Page page) {
+        return new PageResult<>(mapperFactory.othersMapper.searchGoodsList(goodsName,order,page),page.getTotal());
+    }
+
+    @Override
+    public GoodsDetailModel goodsDetail(Integer id) {
+       return mapperFactory.othersMapper.goodsDetail(id);
     }
 }

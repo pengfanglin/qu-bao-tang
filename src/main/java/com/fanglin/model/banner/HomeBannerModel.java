@@ -1,5 +1,6 @@
 package com.fanglin.model.banner;
 
+import com.fanglin.enums.others.BannerTypeEnum;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -20,15 +21,12 @@ public class HomeBannerModel implements Serializable {
     @ApiModelProperty(value = "图片")
     private String img;
 
-    @ApiModelProperty(value = "内链url")
-    private String bannerUrl;
+    @ApiModelProperty(value = "url")
+    private String url;
 
-    @ApiModelProperty(value = "common:普通 goods:商品 chain:外链")
-    private String type;
+    @ApiModelProperty(value = "COMMON:普通 GOODS:商品 CHAIN:外链")
+    private BannerTypeEnum type;
 
     @ApiModelProperty(value = "相关联的业务id")
     private Integer businessId;
-
-    @ApiModelProperty(value = "外链url")
-    private String chainUrl;
 }

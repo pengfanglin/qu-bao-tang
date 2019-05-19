@@ -2,6 +2,7 @@ package com.fanglin.mapper;
 
 import com.fanglin.entity.goods.GoodsEntity;
 import com.fanglin.model.goods.HomeRecommendGoodsModel;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import tk.mybatis.mapper.common.Mapper;
 
@@ -21,4 +22,12 @@ public interface GoodsMapper extends Mapper<GoodsEntity> {
      */
     @Select("select id,name,img,min_price,total_sales from goods where is_recommend=1 and state=1 order by total_sales desc limit 8 ")
     List<HomeRecommendGoodsModel> homeHotGoodsList();
+
+    /**
+     * 商品名称自动补全
+     * @param goodsName 商品名称
+     * @return
+     */
+    @Select("select name from goods where name like concat(#{goodsName},'%') limit 10")
+    List<String> goodsNameAutoCompletion(@Param("goodsName") String goodsName);
 }

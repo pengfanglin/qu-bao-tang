@@ -1,6 +1,10 @@
 package com.fanglin.service;
 
 
+import com.fanglin.core.page.Page;
+import com.fanglin.core.page.PageResult;
+import com.fanglin.model.SearchGoodsModel;
+import com.fanglin.model.goods.GoodsDetailModel;
 import com.fanglin.model.goods.HomeGoodsClassModel;
 import com.fanglin.model.goods.HomeRecommendGoodsModel;
 
@@ -30,4 +34,27 @@ public interface GoodsService {
      * @return
      */
     List<HomeGoodsClassModel> goodsClassTree();
+
+    /**
+     * 商品名称自动补全
+     * @param goodsName 商品名称
+     * @return
+     */
+    List<String> goodsNameAutoCompletion(String goodsName);
+
+    /**
+     * 商品搜索
+     * @param goodsName
+     * @param order
+     * @param page
+     * @return
+     */
+    PageResult<SearchGoodsModel> searchGoodsList(String goodsName,String order, Page page);
+
+    /**
+     * 商品详情
+     * @param id
+     * @return
+     */
+    GoodsDetailModel goodsDetail(Integer id);
 }

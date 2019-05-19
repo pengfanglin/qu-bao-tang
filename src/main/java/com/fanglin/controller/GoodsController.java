@@ -1,6 +1,7 @@
 package com.fanglin.controller;
 
 import com.fanglin.core.others.Ajax;
+import com.fanglin.core.page.Page;
 import com.fanglin.service.GoodsService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -39,5 +40,23 @@ public class GoodsController {
     @PostMapping("goodsClassTree")
     public Ajax goodsClassTree(){
         return Ajax.ok(goodsService.goodsClassTree());
+    }
+
+    @ApiOperation("商品名称自动补全")
+    @PostMapping("goodsNameAutoCompletion")
+    public Ajax goodsNameAutoCompletion(String goodsName){
+        return Ajax.ok(goodsService.goodsNameAutoCompletion(goodsName));
+    }
+
+    @ApiOperation("商品搜索")
+    @PostMapping("searchGoodsList")
+    public Ajax searchGoodsList(String goodsName,String order, Page page){
+        return Ajax.ok(goodsService.searchGoodsList(goodsName,order,page));
+    }
+
+    @ApiOperation("商品详情")
+    @PostMapping("goodsDetail")
+    public Ajax goodsDetail(Integer id){
+        return Ajax.ok(goodsService.goodsDetail(id));
     }
 }

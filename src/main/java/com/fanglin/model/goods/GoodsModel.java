@@ -24,9 +24,6 @@ public class GoodsModel implements Serializable {
 
     private Integer goodsId;
 
-    @ApiModelProperty(value = "商家id")
-    private Integer merchantsId;
-
     @ApiModelProperty(value = "商品分类id")
     private Integer classId;
 
