@@ -88,22 +88,22 @@ public class GoodsEntity implements Serializable {
     /**
      * 宝贝描述
      */
-    private BigDecimal star1;
+    private Float star1;
 
     /**
      * 物流服务
      */
-    private BigDecimal star2;
+    private Float star2;
 
     /**
      * 商家服务
      */
-    private BigDecimal star3;
+    private Float star3;
 
     /**
      * 总的星级
      */
-    private BigDecimal totalStar;
+    private Float totalStar;
 
     /**
      * 评价数量

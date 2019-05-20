@@ -1,26 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.fanglin.mapper.OthersMapper">
-    <select id="searchGoodsList" resultType="searchGoodsModel">
-        select id, name, img, now_price, total_sales, stock
-        from goods
-        where name like concat('%', #{goodsName}, '%')
-        <if test=" order!=null and order !='' ">
-            <if test=" order =='assessment' ">
-             order by total_star desc
-            </if>
-            <if test=" order =='sales' ">
-                order by total_sales desc
-            </if>
-            <if test=" order =='price' ">
-                order by min_price asc
-            </if>
-        </if>
-    </select>
-    <select id="goodsDetail" resultType="goodsDetailModel">
-        select id, name, img, now_price, total_sales, stock,star1,star2,star3,
-        (select group_concat(url) from goods_img where a.id=goods_id and is_delete=0 order by sort desc )as banner_images
-        from goods as a
-        where a.id=#{id} and a.is_delete=0
-    </select>
+
 </mapper>

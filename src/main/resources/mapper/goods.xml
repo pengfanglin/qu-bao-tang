@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fanglin.mapper.GoodsMapper">
+    <select id="searchGoodsList" resultType="searchGoodsModel">
+        select id, name, img, now_price, total_sales, stock
+        from goods
+        where name like concat('%', #{goodsName}, '%')
+        <if test=" order!=null and order !='' ">
+            <if test=" order =='assessment' ">
+             order by total_star desc
+            </if>
+            <if test=" order =='sales' ">
+                order by total_sales desc
+            </if>
+            <if test=" order =='price' ">
+                order by min_price asc
+            </if>
+        </if>
+    </select>
+    <select id="goodsDetail" resultType="goodsDetailModel">
+        select id, name,info_url, img, now_price, total_sales, stock,star1,star2,star3,total_star,
+        (select group_concat(url) from goods_img where a.id=goods_id and is_delete=0 order by sort desc )as banner_images
+        from goods as a
+        where a.id=#{id} and a.is_delete=0
+    </select>
+    <select id="getGoodsSpecificationParent" resultType="specificationModel">
+        select c.* from
+            goods_specification as a
+                inner
+                    join
+            specification as b
+            on
+                    FIND_IN_SET(b.id,a.ids) and
+                    b.is_delete=0
+                inner join specification as c
+                           on
+                               b.parent_id=c.id and c.is_delete=0
+        where
+            a.is_delete=0 and a.goods_id=#{goodsId}
+        group by
+            c.id
+    </select>
+    <select id="getGoodsSpecificationChild" resultType="specificationModel">
+        select b.* from
+            goods_specification as a
+                inner
+                    join specification as b
+                         on
+                                 FIND_IN_SET(b.id,a.ids)
+                                 and b.is_delete=0
+                                 and b.parent_id=#{parentId}
+        where
+            a.is_delete=0 and
+            a.goods_id=#{goodsId}
+        group by b.id
+    </select>
+</mapper>

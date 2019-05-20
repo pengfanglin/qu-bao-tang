@@ -1,6 +1,5 @@
 package com.fanglin.mapper;
 
-import com.fanglin.core.page.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -59,4 +58,14 @@ public class MapperFactory {
      **/
     @Autowired
     public RefundHistoryMapper refundHistoryMapper;
+    /**
+     * 商品规格组合
+     **/
+    @Autowired
+    public GoodsSpecificationMapper goodsSpecificationMapper;
+    /**
+     * 商品规格总表
+     **/
+    @Autowired
+    public SpecificationMapper specificationMapper;
 }

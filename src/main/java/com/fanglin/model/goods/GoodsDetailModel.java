@@ -4,6 +4,9 @@ package com.fanglin.model.goods;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
+import java.math.BigDecimal;
+import java.util.List;
+
 /**
  * 商品详情
  * @author 彭方林
@@ -22,6 +25,11 @@ public class GoodsDetailModel {
      */
     private String name;
     /**
+     * 详情url
+     */
+    private String infoUrl;
+
+    /**
      * 图片
      */
     private String img;
@@ -36,7 +44,7 @@ public class GoodsDetailModel {
     /**
      * 销量
      */
-    private String totalSales;
+    private Integer totalSales;
     /**
      * 总评分
      */
@@ -59,4 +67,12 @@ public class GoodsDetailModel {
      * 商家服务
      */
     private Float star3;
+    /**
+     * 商品规格
+     */
+    List<GoodsSpecificationModel> goodsSpecifications;
+    /**
+     * 规格总表
+     */
+    List<SpecificationModel> specifications;
 }

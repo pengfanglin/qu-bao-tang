@@ -18,7 +18,7 @@ public class Test {
         AutoGenerator generator = new AutoGenerator();
         // 策略配置
         StrategyConfig strategy = new StrategyConfig()
-            .setInclude("shop_car");
+            .setInclude("specification","goods_specification");
         generator.setStrategy(strategy);
         // 全局配置
         GlobalConfig globalConfig = new GlobalConfig()

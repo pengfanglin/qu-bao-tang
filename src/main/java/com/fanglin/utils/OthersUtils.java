@@ -268,7 +268,7 @@ public class OthersUtils {
     }
 
     /**
-     * 判断字符串是否为空
+     * 对象为空
      */
     public static boolean isEmpty(Object object) {
         if (object == null) {
@@ -284,6 +284,13 @@ public class OthersUtils {
         } else {
             return false;
         }
+    }
+
+    /**
+     * 对象不为空
+     */
+    public static boolean notEmpty(Object object) {
+       return !isEmpty(object);
     }
 
     /**
