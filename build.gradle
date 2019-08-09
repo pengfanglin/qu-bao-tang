@@ -1,19 +1,39 @@
 plugins {
-    id 'org.springframework.boot' version '2.1.5.RELEASE'
-    id 'io.spring.dependency-management' version '1.0.7.RELEASE'
+    id 'org.springframework.boot' version '2.1.6.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.8.RELEASE'
 }
 
-apply from: rootProject.projectDir.path + '/ext.gradle'
+ext {
+    mapperVersion = '2.1.5'
+    mybatisSpringbootStarterVersion = '2.1.0'
+    pagehelperVersion = '1.2.12'
+    jedisVersion = '2.10.0'
+    swaggerVersion = '2.9.2'
+    mysqlVersion = '8.0.11'
+}
 
-apply plugin: 'java'
+apply plugin: 'java-library'
 apply plugin: 'idea'
 apply plugin: 'maven'
+apply plugin: 'maven-publish'
+
+def env = project.hasProperty('env') ? project.property("env") : "test"
+def jarVersionSuffix = env == "pro" ? "-RELEASE" : "-SNAPSHOT"
 
 group 'com.fanglin'
 version '1.0.0'
 
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
+}
+
+tasks {
+    processResources {
+        from("src/main/resources")
+        into("$buildDir/resources/main")
+        include("application-" + env + ".yml", "**/*.xml")
+        rename("application-" + env + ".yml", "application.yml")
+    }
 }
 
 // JVM 版本号要求
@@ -23,43 +43,67 @@ targetCompatibility = 1.8
 repositories {
     mavenLocal()
     maven {
+        url 'http://nexus.qubaotang.cn/repository/maven-public/'
+    }
+    maven {
         url 'http://maven.aliyun.com/nexus/content/groups/public/'
     }
 }
 
 dependencies {
     annotationProcessor "org.projectlombok:lombok"
+    annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
+    testAnnotationProcessor "org.projectlombok:lombok"
+    testAnnotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+    testCompileOnly("org.projectlombok:lombok")
+    api("org.projectlombok:lombok")
+    compileOnly("com.fanglin:tk-mapper-generator:1.0.0")
 
-    compileOnly(
-            "org.projectlombok:lombok",
-    )
-    compileOnly("org.apache.poi:poi:${poiVersion}")
-    compileOnly("org.apache.poi:poi-ooxml:${poiVersion}")
-    compileOnly("com.google.zxing:javase:${javaseVersion}")
-    compile("io.springfox:springfox-swagger2:${swaggerVersion}")
-    compile("io.springfox:springfox-swagger-ui:${swaggerVersion}")
+    implementation("io.springfox:springfox-swagger2:${swaggerVersion}")
+    implementation("io.springfox:springfox-swagger-ui:${swaggerVersion}")
 
-    compile("com.fanglin:tk-mapper-generator:1.0.0")
-    compile("tk.mybatis:mapper-spring-boot-starter:${mapperVersion}")
-    compile("org.mybatis.spring.boot:mybatis-spring-boot-starter:${mybatisSpringbootStarterVersion}")
-    compile("com.github.pagehelper:pagehelper-spring-boot-starter:${pagehelperVersion}")
-    compile("org.apache.httpcomponents:httpclient")
-    compile("org.springframework.boot:spring-boot-configuration-processor")
-    compile("redis.clients:jedis:${jedisVersion}")
-    compile("org.springframework.boot:spring-boot-starter-aop")
-    compile("net.coobird:thumbnailator:${thumbnailatorVersion}")
-    compile("mysql:mysql-connector-java:${mysqlVersion}")
-    compile("org.springframework.boot:spring-boot-starter-undertow") {
+    implementation("com.fanglin.common:common:1.0.0-RELEASE") {
+        transitive false
+    }
+    implementation("tk.mybatis:mapper-spring-boot-starter:${mapperVersion}")
+    implementation("org.mybatis.spring.boot:mybatis-spring-boot-starter:${mybatisSpringbootStarterVersion}")
+    implementation("com.github.pagehelper:pagehelper-spring-boot-starter:${pagehelperVersion}")
+    implementation("org.apache.httpcomponents:httpclient")
+    implementation("org.springframework.boot:spring-boot-configuration-processor")
+    implementation("redis.clients:jedis:${jedisVersion}")
+    implementation("org.springframework.boot:spring-boot-starter-aop")
+    implementation("mysql:mysql-connector-java:${mysqlVersion}")
+    implementation("org.springframework.boot:spring-boot-starter-undertow") {
         exclude module: 'undertow-websockets-jsr'
     }
-    compile("com.alipay.sdk:alipay-sdk-java:${alipayVersion}") {
-        exclude module: 'commons-logging'
-    }
-    compile("org.springframework.boot:spring-boot-starter-data-redis") {
-        exclude module: 'lettuce-core'
-    }
-    compile("org.springframework.boot:spring-boot-starter-web") {
+    implementation("org.springframework.boot:spring-boot-starter-web") {
         exclude module: 'spring-boot-starter-tomcat'
+    }
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            from components.java
+        }
+    }
+    repositories {
+        maven {
+            name = 'local'
+            version += jarVersionSuffix
+        }
+    }
+    repositories {
+        maven {
+            name = 'nexus'
+            def releasesRepoUrl = "http://nexus.qubaotang.cn/repository/maven-releases/"
+            def snapshotsRepoUrl = "http://nexus.qubaotang.cn/repository/maven-snapshots/"
+            url = env == 'pro' ? releasesRepoUrl : snapshotsRepoUrl
+            credentials {
+                username = 'admin'
+                password = "123456"
+            }
+        }
     }
 }
 

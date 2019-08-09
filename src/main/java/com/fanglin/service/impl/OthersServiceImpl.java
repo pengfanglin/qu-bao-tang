@@ -1,20 +1,18 @@
 package com.fanglin.service.impl;
 
-import com.fanglin.annotation.LocalCache;
-import com.fanglin.core.others.Ajax;
-import com.fanglin.core.others.Assert;
+import com.fanglin.common.annotation.LocalCache;
+import com.fanglin.common.core.others.Assert;
+import com.fanglin.common.utils.JedisUtils;
+import com.fanglin.common.utils.OthersUtils;
+import com.fanglin.common.utils.SmsUtils;
 import com.fanglin.enums.others.CodeType;
 import com.fanglin.mapper.MapperFactory;
 import com.fanglin.model.banner.HomeBannerModel;
-import com.fanglin.model.others.CodeModel;
 import com.fanglin.service.OthersService;
-import com.fanglin.utils.OthersUtils;
-import com.fanglin.utils.SmsUtils;
-import com.fanglin.utils.TimeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import redis.clients.jedis.Jedis;
 
-import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -37,15 +35,23 @@ public class OthersServiceImpl implements OthersService {
      * @return
      */
     @Override
-    public void sendCode(CodeModel codeModel) {
-        CodeType codeType=CodeType.find(codeModel.getType());
-        Assert.notNull(codeType,"验证码类型不存在");
-        codeModel.setCode(OthersUtils.createRandom(4));
-        Assert.isTrue(SmsUtils.zhuTong(codeModel),"验证码发送失败");
+    public void sendCode(String mobile, CodeType type) {
+        String code = OthersUtils.randomString(4);
+        String content = String.format("验证码为:%s,60秒有效", code);
+        try (Jedis jedis = JedisUtils.getJedis()) {
+            String key = String.format("code:%s:%s", type, mobile);
+            code = jedis.get(key);
+            if (key != null) {
+                long time = jedis.pttl(key);
+                Assert.isTrue(time != -2, "验证码未过期，请" + time + "秒后重试");
+            }
+            Assert.isTrue(SmsUtils.zhuTong(mobile, content), "验证码发送失败");
+            jedis.set(key, code, "ex", 60);
+        }
     }
 
     @Override
-    @LocalCache(value = "home_banner",timeout = 1,unit = TimeUnit.DAYS)
+    @LocalCache(value = "home_banner", timeout = 1, unit = TimeUnit.DAYS)
     public List<HomeBannerModel> homeBannerList() {
         return mapperFactory.bannerMapper.homeBannerList();
     }

@@ -2,24 +2,29 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.fanglin.mapper.GoodsClassMapper">
   <resultMap id="goodsClassParent" type="homeGoodsClassModel">
-    <result column="id" property="id" />
-    <result column="name" property="name" />
-    <result column="img" property="img" />
-    <association property="goodsClassModels" resultMap="goodsClassChild" />
+    <result column="id" property="id"/>
+    <result column="name" property="name"/>
+    <result column="img" property="img"/>
+    <association property="goodsClassModels" resultMap="goodsClassChild"/>
   </resultMap>
   <resultMap id="goodsClassChild" type="homeGoodsClassModel">
-    <result column="id2" property="id" />
-    <result column="name2" property="name" />
-    <result column="img2" property="img" />
+    <result column="id2" property="id"/>
+    <result column="name2" property="name"/>
+    <result column="img2" property="img"/>
   </resultMap>
 
   <select id="goodsClassTree" resultMap="goodsClassParent">
-		select a.id,a.name,a.img,b.id as id2,b.name as name2,
-		b.img as img2,b.parent_id as parent_id2
-		from goods_class as a
-		left join goods_class as b
-		on a.id=b.parent_id
-		where a.parent_id=0
-		order by a.sort desc,b.sort desc,a.id asc,b.id asc
-	</select>
+    select a.id,
+           a.name,
+           a.img,
+           b.id        as id2,
+           b.name      as name2,
+           b.img       as img2,
+           b.parent_id as parent_id2
+    from goods_class as a
+           left join goods_class as b
+                     on a.id = b.parent_id
+    where a.parent_id = 0
+    order by a.sort desc, b.sort desc, a.id, b.id
+  </select>
 </mapper>

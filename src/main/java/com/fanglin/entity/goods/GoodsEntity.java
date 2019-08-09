@@ -1,6 +1,6 @@
 package com.fanglin.entity.goods;
 
-import com.fanglin.core.enums.CodeEnum;
+import com.fanglin.common.core.enums.CodeEnum;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

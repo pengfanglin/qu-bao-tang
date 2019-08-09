@@ -1,6 +1,6 @@
 package com.fanglin.controller;
 
-import com.fanglin.core.others.Ajax;
+import com.fanglin.common.core.others.Ajax;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.error.ErrorAttributes;
 import org.springframework.http.MediaType;
@@ -32,7 +32,7 @@ public class ErrorController implements org.springframework.boot.web.servlet.err
         int code = (int) errorAttributes.get("status");
         String path = errorAttributes.get("path").toString();
         String message = errorAttributes.get("message").toString();
-        return Ajax.status(false, code, String.format("【%s】 %s", path, message));
+        return Ajax.status(code, String.format("【%s】 %s", path, message));
     }
 
     @Override

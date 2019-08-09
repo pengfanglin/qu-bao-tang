@@ -1,6 +1,6 @@
 package com.fanglin.enums.others;
 
-import com.fanglin.core.enums.CodeEnum;
+import com.fanglin.common.core.enums.CodeEnum;
 import lombok.Getter;
 
 /**

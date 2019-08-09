@@ -49,7 +49,7 @@ public interface GoodsService {
      * @param page
      * @return
      */
-    PageResult<SearchGoodsModel> searchGoodsList(String goodsName,String order, Page page);
+    List<SearchGoodsModel> searchGoodsList(String goodsName,String order, Page page);
 
     /**
      * 商品详情

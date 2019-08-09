@@ -1,6 +1,7 @@
 package com.fanglin.enums.pay;
 
-import com.fanglin.core.others.ValidateException;
+
+import com.fanglin.common.core.others.BusinessException;
 
 /**
  * 支付方式
@@ -11,17 +12,17 @@ import com.fanglin.core.others.ValidateException;
  **/
 public enum PayWayEnum {
     //小程序
-    WX_SMALL_PROGRAM(0,"JSAPI"),
+    WX_SMALL_PROGRAM(0, "JSAPI"),
     //微信公众号
-    WX_PUB(1,"JSAPI"),
+    WX_PUB(1, "JSAPI"),
     //微信app
-    WX_APP(2,"APP"),
+    WX_APP(2, "APP"),
     //微信扫码
-    WX_NATIVE(3,"NATIVE"),
+    WX_NATIVE(3, "NATIVE"),
     //微信H5
-    WX_MWEB(4,"MWEB"),
+    WX_MWEB(4, "MWEB"),
     //支付宝app
-    ALIPAY_APP(5,null);
+    ALIPAY_APP(5, null);
 
     /**
      * 支付方式
@@ -32,10 +33,11 @@ public enum PayWayEnum {
      */
     private String type;
 
-    PayWayEnum(Integer way,String type) {
-        this.way=way;
-        this.type=type;
+    PayWayEnum(Integer way, String type) {
+        this.way = way;
+        this.type = type;
     }
+
     public Integer getWay() {
         return way;
     }
@@ -43,13 +45,14 @@ public enum PayWayEnum {
     public String getType() {
         return type;
     }
+
     public static PayWayEnum findByWay(Integer way) {
         for (PayWayEnum payWayEnum : PayWayEnum.values()) {
             if (payWayEnum.way.equals(way)) {
                 return payWayEnum;
             }
         }
-        throw new ValidateException("枚举类型不存在");
+        throw new BusinessException("枚举类型不存在");
     }
 
     public static PayWayEnum findByType(String type) {
@@ -58,6 +61,6 @@ public enum PayWayEnum {
                 return payWayEnum;
             }
         }
-        throw new ValidateException("枚举类型不存在");
+        throw new BusinessException("枚举类型不存在");
     }
 }

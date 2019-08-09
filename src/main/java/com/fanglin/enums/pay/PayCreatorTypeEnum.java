@@ -1,6 +1,8 @@
 package com.fanglin.enums.pay;
 
-import com.fanglin.core.others.ValidateException;
+
+import com.fanglin.common.core.enums.CodeEnum;
+import lombok.Getter;
 
 /**
  * 支付用户类型（根据creatorType和creatorId唯一确定一条支付记录)
@@ -9,7 +11,7 @@ import com.fanglin.core.others.ValidateException;
  * @version 1.0
  * @date 2019/4/10 19:40
  **/
-public enum PayCreatorTypeEnum {
+public enum PayCreatorTypeEnum implements CodeEnum {
     /**
      * 用户
      */
@@ -22,23 +24,11 @@ public enum PayCreatorTypeEnum {
     /**
      * 支付方式
      */
-    private Integer value;
+    @Getter
+    private int code;
 
 
-    PayCreatorTypeEnum(Integer value) {
-        this.value = value;
-    }
-
-    public Integer getValue() {
-        return value;
-    }
-
-    public static PayCreatorTypeEnum find(Integer value) {
-        for (PayCreatorTypeEnum payWayEnum : PayCreatorTypeEnum.values()) {
-            if (payWayEnum.value.equals(value)) {
-                return payWayEnum;
-            }
-        }
-        throw new ValidateException("枚举类型不存在");
+    PayCreatorTypeEnum(int code) {
+        this.code = code;
     }
 }

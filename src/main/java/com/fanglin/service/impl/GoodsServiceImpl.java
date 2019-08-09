@@ -1,13 +1,13 @@
 package com.fanglin.service.impl;
 
-import com.fanglin.annotation.LocalCache;
+import com.fanglin.common.annotation.LocalCache;
+import com.fanglin.common.utils.OthersUtils;
 import com.fanglin.core.page.Page;
 import com.fanglin.core.page.PageResult;
 import com.fanglin.mapper.MapperFactory;
 import com.fanglin.model.SearchGoodsModel;
 import com.fanglin.model.goods.*;
 import com.fanglin.service.GoodsService;
-import com.fanglin.utils.OthersUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -53,8 +53,8 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
     @Override
-    public PageResult<SearchGoodsModel> searchGoodsList(String goodsName, String order, Page page) {
-        return new PageResult<>(mapperFactory.goodsMapper.searchGoodsList(goodsName, order, page), page.getTotal());
+    public List<SearchGoodsModel> searchGoodsList(String goodsName, String order, Page page) {
+        return mapperFactory.goodsMapper.searchGoodsList(goodsName, order, page);
     }
 
     @Override

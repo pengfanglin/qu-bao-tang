@@ -1,6 +1,8 @@
 package com.fanglin.enums.pay;
 
-import com.fanglin.core.others.ValidateException;
+
+import com.fanglin.common.core.enums.CodeEnum;
+import lombok.Getter;
 
 /**
  * 支付业务类型
@@ -9,29 +11,18 @@ import com.fanglin.core.others.ValidateException;
  * @version 1.0
  * @date 2019/4/10 19:40
  **/
-public enum PayBusinessTypeEnum {
+public enum PayBusinessTypeEnum implements CodeEnum {
     //测试支付
     TEST(0);
 
     /**
      * 业务类型
      */
-    private Integer value;
+    @Getter
+    private int code;
 
-    PayBusinessTypeEnum(Integer value) {
-        this.value = value;
+    PayBusinessTypeEnum(int code) {
+        this.code = code;
     }
 
-    public Integer getValue() {
-        return value;
-    }
-
-    public static PayBusinessTypeEnum find(Integer value) {
-        for (PayBusinessTypeEnum payBusinessTypeEnum : PayBusinessTypeEnum.values()) {
-            if (payBusinessTypeEnum.value.equals(value)) {
-                return payBusinessTypeEnum;
-            }
-        }
-        throw new ValidateException("枚举类型不存在");
-    }
 }
