@@ -2,7 +2,7 @@ package com.fanglin.controller;
 
 import com.fanglin.common.annotation.Token;
 import com.fanglin.common.core.others.Ajax;
-import com.fanglin.common.core.others.TokenInfo;
+import com.fanglin.common.core.token.TokenData;
 import com.fanglin.model.user.HotSearchModel;
 import com.fanglin.model.user.ShopCarModel;
 import com.fanglin.model.user.UserModel;
@@ -37,7 +37,7 @@ public class UserController {
     @ApiOperation("用户搜索记录")
     @Token
     @PostMapping("userSearchHistoryList")
-    public Ajax<List<HotSearchModel>> userSearchHistoryList(TokenInfo token) {
+    public Ajax<List<HotSearchModel>> userSearchHistoryList(TokenData token) {
         return Ajax.ok(userService.userSearchHistoryList(token.getId()));
     }
 
@@ -60,14 +60,14 @@ public class UserController {
     @ApiOperation("购物车列表")
     @Token
     @PostMapping("shopCarList")
-    public Ajax<List<ShopCarModel>> shopCarList(TokenInfo token, RowBounds page) {
+    public Ajax<List<ShopCarModel>> shopCarList(TokenData token, RowBounds page) {
         return Ajax.ok(userService.shopCarList(token.getId(), page));
     }
 
     @ApiOperation("添加购物车记录")
     @Token
     @PostMapping("insertShopCart")
-    public Ajax insertShopCart(TokenInfo token, ShopCarModel shopCarModel) {
+    public Ajax insertShopCart(TokenData token, ShopCarModel shopCarModel) {
         userService.insertShopCart(shopCarModel.setUserId(token.getId()));
         return Ajax.ok();
     }
@@ -78,7 +78,7 @@ public class UserController {
     })
     @Token
     @PostMapping("deleteShopCarByIds")
-    public Ajax deleteShopCarByIds(TokenInfo token, @RequestParam String ids) {
+    public Ajax deleteShopCarByIds(TokenData token, @RequestParam String ids) {
         if (userService.deleteShopCarByIds(token.getId(), ids) > 0) {
             return Ajax.ok();
         } else {

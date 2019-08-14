@@ -25,8 +25,8 @@ public interface ShopCarMapper extends Mapper<ShopCarEntity>{
      * @param page
      * @return
      */
-    @Select("SELECT a.id,a.number,b.id AS goods_id,b.name AS goods_name,c.id AS specification_id,c.names AS specification_name,c.img AS img,c.price AS specification_price FROM shop_car AS a INNER JOIN goods AS b ON a.goods_id=b.id and a.is_delete=0 AND b.state=1 and b.is_delete=0 INNER JOIN goods_specification AS c ON a.specification_id=c.id and c.is_delete=0 WHERE a.user_id=1")
-    List<ShopCarModel> shopCarList(Integer userId, RowBounds page);
+    @Select("SELECT a.id,a.number,b.id AS goods_id,b.name AS goods_name,c.id AS specification_id,c.names AS specification_name,c.img AS img,c.price AS specification_price FROM shop_car AS a INNER JOIN goods AS b ON a.goods_id=b.id and a.is_delete=0 AND b.state=1 and b.is_delete=0 INNER JOIN goods_specification AS c ON a.specification_id=c.id and c.is_delete=0 WHERE a.user_id=#{userId}")
+    List<ShopCarModel> shopCarList(@Param("userId") Integer userId, RowBounds page);
 
     /**
      * 批量删除购物车

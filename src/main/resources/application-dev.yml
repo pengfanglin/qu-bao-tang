@@ -40,6 +40,7 @@ common:
     password: 123456
     host: 47.101.151.125
   gaode:
+
     key: 4a4775afef857b08ca7e3ed2407a91ba
   push:
     app-key: 309b096fa91403d46616e9ca

@@ -2,7 +2,8 @@ package com.fanglin.service.impl;
 
 import com.fanglin.common.annotation.LocalCache;
 import com.fanglin.common.core.others.Assert;
-import com.fanglin.common.core.others.TokenInfo;
+import com.fanglin.common.core.token.TokenData;
+import com.fanglin.common.core.token.TokenInfo;
 import com.fanglin.common.utils.BeanUtils;
 import com.fanglin.common.utils.EncodeUtils;
 import com.fanglin.common.utils.RegexUtils;
@@ -58,7 +59,7 @@ public class UserServiceImpl implements UserService {
         Assert.notNull(user, "用户不存在");
         Assert.isTrue("0".equals(user.getIsDisable()), "账号已冻结");
         Assert.isTrue(EncodeUtils.md5Encode(password).equals(user.getPassword()), "密码错误");
-        TokenUtils.login(response, new TokenInfo().setId(user.getId()));
+        TokenUtils.login(response, new TokenInfo().setData(new TokenData().setId(user.getId())));
         return BeanUtils.copy(user, UserModel.class).setPassword(null).setPayPassword(null);
     }
 
