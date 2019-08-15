@@ -29,11 +29,6 @@ public class OthersServiceImpl implements OthersService {
     @Autowired
     MapperFactory mapperFactory;
 
-    /**
-     * 添加新的验证码
-     *
-     * @return
-     */
     @Override
     public void sendCode(String mobile, CodeType type) {
         String code = OthersUtils.randomString(4);
