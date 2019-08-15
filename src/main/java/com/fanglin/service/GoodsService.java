@@ -1,12 +1,11 @@
 package com.fanglin.service;
 
 
-import com.fanglin.core.page.Page;
-import com.fanglin.core.page.PageResult;
 import com.fanglin.model.SearchGoodsModel;
 import com.fanglin.model.goods.GoodsDetailModel;
 import com.fanglin.model.goods.HomeGoodsClassModel;
 import com.fanglin.model.goods.HomeRecommendGoodsModel;
+import org.apache.ibatis.session.RowBounds;
 
 import java.util.List;
 
@@ -49,7 +48,7 @@ public interface GoodsService {
      * @param page
      * @return
      */
-    List<SearchGoodsModel> searchGoodsList(String goodsName,String order, Page page);
+    List<SearchGoodsModel> searchGoodsList(String goodsName,String order, RowBounds page);
 
     /**
      * 商品详情

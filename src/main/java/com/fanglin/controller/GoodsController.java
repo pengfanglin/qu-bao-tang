@@ -11,6 +11,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -67,7 +68,7 @@ public class GoodsController {
         @ApiImplicitParam(name = "order", value = "排序规则")
     })
     @PostMapping("searchGoodsList")
-    public Ajax<List<SearchGoodsModel>> searchGoodsList(String goodsName, String order, Page page) {
+    public Ajax<List<SearchGoodsModel>> searchGoodsList(String goodsName, String order, RowBounds page) {
         return Ajax.ok(goodsService.searchGoodsList(goodsName, order, page));
     }
 

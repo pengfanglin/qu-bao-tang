@@ -1,8 +1,6 @@
 package com.fanglin.service;
 
 
-import com.fanglin.core.page.Page;
-import com.fanglin.core.page.PageResult;
 import com.fanglin.model.user.HotSearchModel;
 import com.fanglin.model.user.ShopCarModel;
 import com.fanglin.model.user.UserModel;

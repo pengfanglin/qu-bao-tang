@@ -8,6 +8,7 @@ import com.fanglin.model.goods.HomeRecommendGoodsModel;
 import com.fanglin.model.goods.SpecificationModel;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.session.RowBounds;
 import tk.mybatis.mapper.common.Mapper;
 
 import java.util.List;
@@ -45,7 +46,7 @@ public interface GoodsMapper extends Mapper<GoodsEntity> {
      * @param page
      * @return
      */
-    List<SearchGoodsModel> searchGoodsList(@Param("goodsName") String goodsName, @Param("order") String order, Page page);
+    List<SearchGoodsModel> searchGoodsList(@Param("goodsName") String goodsName, @Param("order") String order, RowBounds page);
 
     /**
      * 商品详情

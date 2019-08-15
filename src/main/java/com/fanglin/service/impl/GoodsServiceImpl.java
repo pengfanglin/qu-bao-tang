@@ -3,11 +3,11 @@ package com.fanglin.service.impl;
 import com.fanglin.common.annotation.LocalCache;
 import com.fanglin.common.utils.OthersUtils;
 import com.fanglin.core.page.Page;
-import com.fanglin.core.page.PageResult;
 import com.fanglin.mapper.MapperFactory;
 import com.fanglin.model.SearchGoodsModel;
 import com.fanglin.model.goods.*;
 import com.fanglin.service.GoodsService;
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -53,7 +53,7 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
     @Override
-    public List<SearchGoodsModel> searchGoodsList(String goodsName, String order, Page page) {
+    public List<SearchGoodsModel> searchGoodsList(String goodsName, String order, RowBounds page) {
         return mapperFactory.goodsMapper.searchGoodsList(goodsName, order, page);
     }
 
