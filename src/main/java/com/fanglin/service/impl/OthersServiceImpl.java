@@ -48,7 +48,7 @@ public class OthersServiceImpl implements OthersService {
     @Override
     @LocalCache(value = "home_banner", timeout = 1, unit = TimeUnit.DAYS)
     public List<HomeBannerModel> homeBannerList() {
-        return mapperFactory.bannerMapper.homeBannerList();
+        return mapperFactory.banner.homeBannerList();
     }
 
 }

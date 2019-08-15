@@ -2,7 +2,6 @@ package com.fanglin.service.impl;
 
 import com.fanglin.common.annotation.LocalCache;
 import com.fanglin.common.utils.OthersUtils;
-import com.fanglin.core.page.Page;
 import com.fanglin.mapper.MapperFactory;
 import com.fanglin.model.SearchGoodsModel;
 import com.fanglin.model.goods.*;
@@ -32,38 +31,38 @@ public class GoodsServiceImpl implements GoodsService {
     @Override
     @LocalCache(value = "home_goods_class", timeout = 1, unit = TimeUnit.DAYS)
     public List<HomeGoodsClassModel> homeGoodsClassList() {
-        return mapperFactory.goodsClassMapper.homeGoodsClassList();
+        return mapperFactory.goodsClass.homeGoodsClassList();
     }
 
     @Override
     @LocalCache(value = "home_recommend_goods", timeout = 1, unit = TimeUnit.DAYS)
     public List<HomeRecommendGoodsModel> homeHotGoodsList() {
-        return mapperFactory.goodsMapper.homeHotGoodsList();
+        return mapperFactory.goods.homeHotGoodsList();
     }
 
     @Override
     @LocalCache(value = "goods_class_tree", timeout = 1, unit = TimeUnit.DAYS)
     public List<HomeGoodsClassModel> goodsClassTree() {
-        return mapperFactory.goodsClassMapper.goodsClassTree();
+        return mapperFactory.goodsClass.goodsClassTree();
     }
 
     @Override
     public List<String> goodsNameAutoCompletion(String goodsName) {
-        return mapperFactory.goodsMapper.goodsNameAutoCompletion(goodsName);
+        return mapperFactory.goods.goodsNameAutoCompletion(goodsName);
     }
 
     @Override
     public List<SearchGoodsModel> searchGoodsList(String goodsName, String order, RowBounds page) {
-        return mapperFactory.goodsMapper.searchGoodsList(goodsName, order, page);
+        return mapperFactory.goods.searchGoodsList(goodsName, order, page);
     }
 
     @Override
     public GoodsDetailModel goodsDetail(Integer id) {
         //商品详情
-        GoodsDetailModel goodsDetail = mapperFactory.goodsMapper.goodsDetail(id);
+        GoodsDetailModel goodsDetail = mapperFactory.goods.goodsDetail(id);
         if (goodsDetail != null) {
             //商品拥有的规格
-            List<GoodsSpecificationModel> goodsSpecifications = mapperFactory.goodsSpecificationMapper.getGoodsSpecifications(id);
+            List<GoodsSpecificationModel> goodsSpecifications = mapperFactory.goodsSpecification.getGoodsSpecifications(id);
             goodsDetail.setGoodsSpecifications(goodsSpecifications);
             //商品的总规格
             List<SpecificationModel> specifications = this.getGoodsSpecifications(id);
@@ -91,9 +90,9 @@ public class GoodsServiceImpl implements GoodsService {
      * 通过商品id获取商品规格信息
      */
     private List<SpecificationModel> getGoodsSpecifications(Integer goodsId) {
-        List<SpecificationModel> parentSpecifications = mapperFactory.goodsMapper.getGoodsSpecificationParent(goodsId);
+        List<SpecificationModel> parentSpecifications = mapperFactory.goods.getGoodsSpecificationParent(goodsId);
         for (SpecificationModel specification : parentSpecifications) {
-            List<SpecificationModel> childSpecifications = mapperFactory.goodsMapper.getGoodsSpecificationChild(goodsId, specification.getId());
+            List<SpecificationModel> childSpecifications = mapperFactory.goods.getGoodsSpecificationChild(goodsId, specification.getId());
             specification.setSpecifications(childSpecifications);
         }
         return parentSpecifications;

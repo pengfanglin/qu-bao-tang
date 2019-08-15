@@ -12,60 +12,64 @@ import org.springframework.stereotype.Component;
  **/
 @Component
 public class MapperFactory {
+    /**
+     * 其他
+     */
     @Autowired
-    public OthersMapper othersMapper;
+    public OthersMapper others;
+    /**
+     * 系统html
+     */
     @Autowired
-    public SystemHtmlMapper systemHtmlMapper;
-    @Autowired
-    public HtmlStyleMapper htmlStyleMapper;
+    public SystemHtmlMapper systemHtml;
     /**
      * 购物车
      **/
     @Autowired
-    public ShopCarMapper shopCarMapper;
+    public ShopCarMapper shopCar;
     /**
      * 用户
      **/
     @Autowired
-    public UserMapper userMapper;
+    public UserMapper user;
     /**
      * 用户搜索记录
      **/
     @Autowired
-    public HotSearchMapper hotSearchMapper;
+    public HotSearchMapper hotSearch;
     /**
      * 商品
      **/
     @Autowired
-    public GoodsMapper goodsMapper;
+    public GoodsMapper goods;
     /**
      * 商品分类
      */
     @Autowired
-    public GoodsClassMapper goodsClassMapper;
+    public GoodsClassMapper goodsClass;
     /**
      * 轮播图
      */
     @Autowired
-    public BannerMapper bannerMapper;
+    public BannerMapper banner;
     /**
      * 支付记录
      **/
     @Autowired
-    public PayHistoryMapper payHistoryMapper;
+    public PayHistoryMapper payHistory;
     /**
      * 退款记录
      **/
     @Autowired
-    public RefundHistoryMapper refundHistoryMapper;
+    public RefundHistoryMapper refundHistory;
     /**
      * 商品规格组合
      **/
     @Autowired
-    public GoodsSpecificationMapper goodsSpecificationMapper;
+    public GoodsSpecificationMapper goodsSpecification;
     /**
      * 商品规格总表
      **/
     @Autowired
-    public SpecificationMapper specificationMapper;
+    public SpecificationMapper specification;
 }

@@ -40,13 +40,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<HotSearchModel> userSearchHistoryList(Integer userId) {
-        return mapperFactory.hotSearchMapper.userSearchHistoryList(userId);
+        return mapperFactory.hotSearch.userSearchHistoryList(userId);
     }
 
     @Override
     @LocalCache(value = "hot_search", timeout = 1, unit = TimeUnit.HOURS)
     public List<HotSearchModel> hostSearchList() {
-        return mapperFactory.hotSearchMapper.hostSearchList();
+        return mapperFactory.hotSearch.hostSearchList();
     }
 
     @Override
@@ -55,7 +55,7 @@ public class UserServiceImpl implements UserService {
         Assert.notEmpty(password, "请输入密码");
         Assert.isTrue(RegexUtils.checkPhone(account), "手机号格式错误");
         Assert.isTrue(password.length() <= 30, "密码最多30位");
-        UserEntity user = mapperFactory.userMapper.selectOne(new UserEntity().setAccount(account));
+        UserEntity user = mapperFactory.user.selectOne(new UserEntity().setAccount(account));
         Assert.notNull(user, "用户不存在");
         Assert.isTrue("0".equals(user.getIsDisable()), "账号已冻结");
         Assert.isTrue(EncodeUtils.md5Encode(password).equals(user.getPassword()), "密码错误");
@@ -65,16 +65,16 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<ShopCarModel> shopCarList(Integer userId, RowBounds page) {
-        return mapperFactory.shopCarMapper.shopCarList(userId, page);
+        return mapperFactory.shopCar.shopCarList(userId, page);
     }
 
     @Override
     public int insertShopCart(ShopCarModel shopCarModel) {
-        return mapperFactory.shopCarMapper.insertSelective(BeanUtils.copy(shopCarModel, ShopCarEntity.class));
+        return mapperFactory.shopCar.insertSelective(BeanUtils.copy(shopCarModel, ShopCarEntity.class));
     }
 
     @Override
     public int deleteShopCarByIds(Integer userId, String ids) {
-        return mapperFactory.shopCarMapper.deleteShopCarByIds(userId, ids);
+        return mapperFactory.shopCar.deleteShopCarByIds(userId, ids);
     }
 }
