@@ -1,6 +1,7 @@
 package com.fanglin.service.impl;
 
 import com.fanglin.common.annotation.LocalCache;
+import com.fanglin.common.annotation.RedisCache;
 import com.fanglin.common.core.others.Assert;
 import com.fanglin.common.core.token.TokenData;
 import com.fanglin.common.core.token.TokenInfo;
